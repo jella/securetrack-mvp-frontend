@@ -71,6 +71,34 @@ button {
     display: none;
 }
 
+
+/* Views - Esse e o efeito de caixa sommpbreada oara views e forms*/
+.view-container {
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+
+#form-cadastro-ativo label {
+    display: block; /* Garante que o label ocupe uma linha inteira */
+    margin-bottom: 0.5rem; /* Espaçamento entre label e campo */
+    font-weight: bold;
+}
+
+#form-cadastro-ativo .input-field {
+    width: 100%; /* Campos ocupam toda a largura do contêiner */
+    padding: 0.75rem; /* Espaçamento interno */
+    margin-bottom: 1rem; /* Espaçamento entre os campos */
+    border: 1px solid #ccc; /* Borda cinza clara */
+    border-radius: 4px; /* Bordas arredondadas */
+    font-size: 1rem; /* Texto legível */
+}
+
+
 /*  Dashboard */
 #dashboard {
     padding: 2rem;
