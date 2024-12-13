@@ -10,20 +10,22 @@ function loadAtivosTable(data) {
   tableBody.innerHTML = '';
   
   data.forEach(item => {
-  const row =          <tr>
-                <td>${item.nome}</td>
-                <td>${item.tipo}</td>
-                <td>${item.status}</td>
-                <td>${item.responsavel}</td>
-                <td>
-                    <button class="editar-ativo action-button" data-id="${item.id}">Editar</button>
-                    <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
-                </td>
-            </tr>
-      ;
-  tableBody.insertAdjacentHTML('beforeend', row);
+    const row = `
+      <tr>
+        <td>${item.nome}</td>
+        <td>${item.tipo}</td>
+        <td>${item.status}</td>
+        <td>${item.responsavel}</td>
+        <td>
+          <button class="editar-ativo action-button" data-id="${item.id}">Editar</button>
+          <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
+        </td>
+      </tr>
+    `;
+    tableBody.insertAdjacentHTML('beforeend', row);
   });
-  }
+}
+
   
   /**
   
@@ -37,7 +39,7 @@ function loadAtivosTable(data) {
   tableBody.innerHTML = '';
   
   data.forEach(item => {
-  const row =          <tr>
+  const row =`<tr>
                 <td>${item.descricao}</td>
                 <td>${item.categoria}</td>
                 <td>
@@ -45,7 +47,7 @@ function loadAtivosTable(data) {
                     <button class="remover-controle action-button" data-id="${item.id}">Remover</button>
                 </td>
             </tr>
-      ;
+      `;
   tableBody.insertAdjacentHTML('beforeend', row);
   });
   }
