@@ -98,6 +98,15 @@ button {
     font-size: 1rem; /* Texto legível */
 }
 
+/* Lists */
+.list-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 /*  Dashboard */
 #dashboard {
@@ -224,6 +233,25 @@ button {
 #tabela-relatorio th {
     background-color: #f4f4f4;
 }
+
+#tabela-relatorio {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+#tabela-relatorio th,
+#tabela-relatorio td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+#tabela-relatorio th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
 
 /* Footer */
 #main-footer {
