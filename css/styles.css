@@ -1,0 +1,150 @@
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configurações Globais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Header */
+#main-header {
+    background-color: #004080;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    font-size: 1rem;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #00509e;
+}
+
+/* Main Content */
+#dashboard {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Summary Section */
+#summary {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.summary-item {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.summary-item h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.summary-count {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #004080;
+    margin-bottom: 1rem;
+}
+
+.action-button {
+    display: inline-block;
+    background-color: #004080;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #00509e;
+}
+
+/* Actions Section */
+#actions {
+    text-align: center;
+}
+
+#view-compliance-report {
+    font-size: 1.2rem;
+}
+
+/* Footer */
+#main-footer {
+    background-color: #004080;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 2rem;
+    margin-top: 2rem;
+}
+
+.footer-text {
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #summary {
+        flex-direction: column;
+        align-items: center;
+    }
+}

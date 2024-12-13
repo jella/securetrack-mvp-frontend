@@ -1,0 +1,216 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">   
+
+    <title>SecureTrack</title>
+</head>
+
+<body>
+    <!-- view do Header -->
+    <header id="main-header">
+        <nav class="navigation-bar">
+             <h1 class="app-title"><i class="bi bi-shield-check"></i> SecureTrack</h1>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link">Configurações</a></li>
+                <li><a href="#" class="nav-link">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- View do Dashboard -->
+    <main id="dashboard">
+        <!-- Summary Section -->
+        <section id="summary">
+            <div class="summary-item" id="summary-assets">
+                <h2>Ativos</h2>
+                <p class="summary-count" id="assets-count">0</p>
+                <button class="action-button" id="view-assets">Ver Ativos</button>
+                <button class="action-button" id="add-asset">Novo Ativo</button>
+            </div>
+            <div class="summary-item" id="summary-controls">
+                <h2>Controles</h2>
+                <p class="summary-count" id="controls-count">0</p>
+                <button class="action-button" id="view-controls">Ver Controles</button>
+                <button class="action-button" id="add-control">Novo Controle</button>
+            </div>
+        </section>
+
+        <!-- Actions Section -->
+        <section id="actions">
+            <button class="action-button" id="view-compliance-report">Relatório de Conformidade</button>
+        </section>
+    </main>
+
+    <!-- View da Página de Ativos -->
+    <main id="ativos-page">
+        <!-- Section: Cadastro de Ativo -->
+        <section id="cadastro-ativo">
+            <h2>Cadastro de Ativo</h2>
+            <form id="form-cadastro-ativo">
+                <label for="nome-ativo">Nome:</label>
+                <input type="text" id="nome-ativo" class="input-field" name="nome-ativo" required>
+                
+                <label for="tipo-ativo">Tipo:</label>
+                <select id="tipo-ativo" class="input-field" name="tipo-ativo" required>
+                    <option value="hardware">Hardware</option>
+                    <option value="software">Software</option>
+                </select>
+                
+                <label for="status-ativo">Status:</label>
+                <input type="text" id="status-ativo" class="input-field" name="status-ativo" required>
+                
+                <label for="responsavel-ativo">Responsável:</label>
+                <input type="text" id="responsavel-ativo" class="input-field" name="responsavel-ativo" required>
+                
+                <label for="observacoes-ativo">Observações:</label>
+                <textarea id="observacoes-ativo" class="input-field" name="observacoes-ativo"></textarea>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="action-button" id="salvar-ativo">Salvar</button>
+                    <button type="button" class="action-button" id="cancelar-cadastro">Cancelar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Section: Listagem de Ativos -->
+        <section id="listagem-ativos">
+            <h2>Listagem de Ativos</h2>
+            <table id="tabela-ativos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                        <th>Responsável</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas serão adicionadas dinamicamente -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- view da Listagem de Ativos -->
+    <main id="listagem-ativos-page">
+        <!-- Section: Tabela de Ativos -->
+        <section id="listagem-ativos">
+            <h2>Lista de Ativos</h2>
+            <button id="adicionar-ativo" class="action-button">Adicionar Novo Ativo</button>
+            <table id="tabela-ativos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Status</th>
+                        <th>Responsável</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas de ativos serão preenchidas dinamicamente -->
+                    <!-- Exemplo de linha estática -->
+                    <tr>
+                        <td>Servidor 1</td>
+                        <td>Hardware</td>
+                        <td>Em produção</td>
+                        <td>João Silva</td>
+                        <td>
+                            <button class="editar-ativo action-button">Editar</button>
+                            <button class="remover-ativo action-button">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- view da Página de Controlest -->
+    <main id="controles-page">
+        <section id="cadastro-controle">
+            <h2>Cadastro de Controle de Segurança</h2>
+            <form id="form-cadastro-controle">
+                <!-- Campo: Descrição -->
+                <label for="descricao-controle">Descrição do Controle:</label>
+                <input type="text" id="descricao-controle" class="input-field" name="descricao-controle" required>
+    
+                <!-- Campo: Categoria -->
+                <label for="categoria-controle">Categoria:</label>
+                <select id="categoria-controle" class="input-field" name="categoria-controle" required>
+                <option value="tecnico">Técnico</option>
+                    <option value="administrativo">Administrativo</option>
+                </select>
+    
+                <!-- Campo: Código Alfanumérico -->
+                <label for="codigo-controle">Código Alfanumérico:</label>
+                <input type="text" id="codigo-controle" class="input-field" name="codigo-controle" required>
+    
+                <!-- Campo: Anotações -->
+                <label for="anotacoes-controle">Anotações:</label>
+                <textarea id="anotacoes-controle" class="input-field" name="anotacoes-controle"></textarea>
+    
+                <!-- Botões -->
+                <div class="form-buttons">
+                        <button type="submit" class="action-button" id="salvar-controle">Salvar</button>
+                        <button type="button" class="action-button" id="cancelar-controle">Cancelar</button>
+                    </div>
+                </form>
+        </section>
+ 
+    <!-- view da Pagina com o Relatório de conformidade -->
+    <main id="relatorio-conformidade-page">
+        <section id="relatorio-conformidade">
+            <h2>Relatório de Conformidade</h2>
+
+            <!-- Filtros -->
+            <div id="filtros-conformidade">
+                <label for="filtro-status">Filtrar por status:</label>
+                <select id="filtro-status" class="input-field" name="filtro-status">
+                    <option value="todos">Todos</option>
+                    <option value="conforme">Conforme</option>
+                    <option value="nao-conforme">Não Conforme</option>
+                </select>
+                <button id="aplicar-filtro" class="action-button">Aplicar Filtro</button>
+            </div>
+
+            <!-- Tabela de Relatório -->
+            <table id="tabela-relatorio">
+                <thead>
+                    <tr>
+                        <th>Nome do Ativo</th>
+                        <th>Controles Associados</th>
+                        <th>Status de Conformidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas de relatório serão preenchidas dinamicamente -->
+                    <!-- Exemplo de linha estática -->
+                    <tr>
+                        <td>Servidor de Aplicação</td>
+                        <td>Backup Diário, Firewall</td>
+                        <td>Conforme</td>
+                    </tr>
+                    <tr>
+                        <td>Banco de Dados</td>
+                        <td>Criptografia, Controle de Acesso</td>
+                        <td>Não Conforme</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+
+ <!-- Footer -->
+<footer id="main-footer">
+    <p class="footer-text">© 2024 SecureTrack. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>
