@@ -17,17 +17,16 @@ function loadView(view) {
 if (currentView === view) return;
 
 
-const currentViewElement = document.querySelector(#${currentView});
+const currentViewElement = document.querySelector(`#${currentView}`);
 if (currentViewElement) {
 currentViewElement.style.display = 'none';
 }
 
 
-const newViewElement = document.querySelector(#${view});
+const newViewElement = document.querySelector(`#${view}`);
 if (newViewElement) {
-newViewElement.style.display = 'block';
+    newViewElement.style.display = 'block';
 }
-
 
 currentView = view;
 updateURL(view);
@@ -40,7 +39,7 @@ Atualiza a URL no navegador sem recarregar a página.
 @param {string} view O nome da view que vai ser refletido na URL.
 */
 function updateURL(view) {
-const url = #${view};
+const url = `#${view}`;
 window.history.pushState({ view: view }, '', url);
 }
 
