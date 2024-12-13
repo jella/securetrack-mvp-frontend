@@ -82,15 +82,6 @@ button {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-.dashboard-container {
-    max-width: 600px; 
-    margin: 0 auto; 
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 8px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-}
-
 #form-cadastro-ativo label {
     display: block; /* Garante que o label ocupe uma linha inteira */
     margin-bottom: 0.5rem; /* Espaçamento entre label e campo */
