@@ -1,79 +1,68 @@
-// Constantes para os identificadores das Views
-const VIEWS = {
-    HOME: 'home',
-    ABOUT: 'about',
-    CONTACT: 'contact'
-  };
-
-
-  // Variáveis para armazenar as views e o estaDo atual
-let currentView = null;
-const viewsContainer = document.getElementById('views-container');  // Container onde as views serão renderizadas
-
-
 /**
- * Carrega a view especificada.
- * @param {string} view O nome da view a ser carregada.
- */
-function loadView(view) {
-    // Verifica se a view já está carregada
-    if (currentView === view) return;
-  
-    // Esconde a view atual
-    const currentViewElement = document.querySelector(`#${currentView}`);
-    if (currentViewElement) {
-      currentViewElement.style.display = 'none';
-    }
-  
-    // Exibe a nova view
-    const newViewElement = document.querySelector(`#${view}`);
-    if (newViewElement) {
-      newViewElement.style.display = 'block';
-    }
-  
-    // Atualiza a variável de estado
-    currentView = view;
-    updateURL(view);
-  }
+    
+    Preenche de forma dinamica a tabela de ativos com os dados passados.
+    
+    @param {Array} data Lista de ativos que serão exibidos.
+    */
 
-
-
-  /**
- * Atualiza a url no navegador sem recarregar a Página.
- * @param {string} view O nome da view que será refletido na URL.
- */
-function updateURL(view) {
-    const url = `#${view}`;
-    window.history.pushState({ view: view }, '', url);
-  }
-
-  
-
-  /**
- * Função que adiciona um ouvinte de eventos aos links para controlar a navegação.
- * @param {NodeList} links A lista de links que irão disparar a navegação.
- */
-function setupNavigation(links) {
-    links.forEach(link => {
-      link.addEventListener('click', function (event) {
-        event.preventDefault(); // Previne o comportamento padrão de recarregar a página
-        const targetView = link.getAttribute('href').substring(1); // Extrai o nome da view do link (por exemplo, '#home')
-        loadView(targetView);
+    function loadAtivosTable(data) {
+      const tableBody = document.querySelector('#tabela-ativos tbody');
+      tableBody.innerHTML = '';
+      
+      data.forEach(item => {
+      const row =          <tr>
+                   <td>${item.nome}</td>
+                   <td>${item.tipo}</td>
+                   <td>${item.status}</td>
+                   <td>${item.responsavel}</td>
+                   <td>
+                       <button class="editar-ativo action-button" data-id="${item.id}">Editar</button>
+                       <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
+                   </td>
+               </tr>
+          ;
+      tableBody.insertAdjacentHTML('beforeend', row);
       });
-    });
-  }
+      }
+      
+      /**
+      
+      Preenche dinamicamente a tabela de controles com dados passados.
+      
+      @param {Array} data Lista de controles a serem exibidos.
+   
+      */
+      function loadControlesTable(data) {
+      const tableBody = document.querySelector('#tabela-controles tbody');
+      tableBody.innerHTML = '';
+      
+      data.forEach(item => {
+      const row =          <tr>
+                   <td>${item.descricao}</td>
+                   <td>${item.categoria}</td>
+                   <td>
+                       <button class="editar-controle action-button" data-id="${item.id}">Editar</button>
+                       <button class="remover-controle action-button" data-id="${item.id}">Remover</button>
+                   </td>
+               </tr>
+          ;
+      tableBody.insertAdjacentHTML('beforeend', row);
+      });
+      }
+      
+   
+      function initializeApp() {
+      const links = document.querySelectorAll('.nav-link');
+      setupNavigation(links);
+      setupDashboardEvents();
+      
 
-
-
-/**
- * Função para inicializar a SPA e carregar a view inicial.
- */
-function initializeApp() {
-    const links = document.querySelectorAll('.nav-link'); // Suponha que os links de navegação tenham a classe 'nav-link'
-    setupNavigation(links);
-  
-    // Verifica a URL atual e carrega a view correspondente
-    const initialView = window.location.hash.substring(1) || VIEWS.HOME; // Se não houver hash, carrega 'home'
-    loadView(initialView);
-  }
-  
+      const initialView = window.location.hash.substring(1) || VIEWS.DASHBOARD;
+      loadView(initialView);
+      }
+      
+ 
+      document.addEventListener('DOMContentLoaded', () => {
+      initializeApp();
+      setupHistoryListeners();
+      });
