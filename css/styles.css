@@ -276,4 +276,19 @@ button {
     .summary-item {
         max-width: 100%;
     }
+
+    .form-container,
+    .list-container {
+        max-width: 90%;
+        padding: 1rem;
+    }
+
+    #form-cadastro-ativo .input-field {
+        font-size: 0.9rem;
+    }
+
+    #tabela-relatorio th,
+    #tabela-relatorio td {
+        font-size: 0.9rem;
+    }
 }
