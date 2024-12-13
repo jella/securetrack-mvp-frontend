@@ -17,8 +17,8 @@
         <nav class="navigation-bar">
              <h1 class="app-title"><i class="bi bi-shield-check"></i> SecureTrack</h1>
             <ul class="nav-links">
-                <li><a href="#" class="nav-link">Configurações</a></li>
-                <li><a href="#" class="nav-link">Logout</a></li>
+                <li><a href="#dashboard-view" class="nav-link">Dashboard</a></li>
+                <li><a href="#ativos-view" class="nav-link">Ativos</a></li>
                 <li><a href="#controles-view" class="nav-link">Controles</a></li>
                 <li><a href="#conformidade-view" class="nav-link">Relatório</a></li>
             </ul>
@@ -26,7 +26,7 @@
     </header>
 
     <!-- View do Dashboard -->
-    <div id="dashboard-view" class="view"></div> 
+    <div id="dashboard-view" class="view">
         <main id="dashboard">
             <!-- Summary Section -->
             <section id="summary">
@@ -49,9 +49,9 @@
                 <button class="action-button" id="view-compliance-report">Relatório de Conformidade</button>
             </section>
         </main>
-
+    </div> 
     <!-- View da Página de Ativos -->
-    <div id="ativos-view" class="view" style="display: none;"></div>
+    <div id="ativos-view" class="view" style="display: none;">
         <main id="ativos-page">
             <!-- Section: Cadastro de Ativo -->
             <section id="cadastro-ativo">
@@ -85,7 +85,7 @@
     </div>
 
     <!-- view da Página de Controlest -->
-    <div id="controles-view" class="view" style="display: none;"></div>
+    <div id="controles-view" class="view" style="display: none;">
         <main id="controles-page">
             <section id="cadastro-controle">
                 <h2>Cadastro de Controle de Segurança</h2>
@@ -117,10 +117,10 @@
                     </form>
             </section>
         </main>
-    <div>
+    </div>
 
     <!-- view da Pagina com o Relatório de conformidade -->
-    <div id="conformidade-view" class="view" style="display: none;"></div>
+    <div id="conformidade-view" class="view" style="display: none;">
         <main id="relatorio-conformidade-page">
             <section id="relatorio-conformidade">
                 <h2>Relatório de Conformidade</h2>
@@ -157,5 +157,8 @@
 <footer id="main-footer">
     <p class="footer-text">© 2024 SecureTrack. Todos os direitos reservados.</p>
 </footer>
+<script src="./js/scripts.js"></script>
+<script src="./js/navigation.js"></script>
+<script src="./js/dashboard.js"></script>
 </body>
 </html>
