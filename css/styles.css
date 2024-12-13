@@ -1,11 +1,11 @@
-/* Reset Básico */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Configurações Globais */
+/* Estilos globais */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -66,7 +66,12 @@ button {
     background-color: #00509e;
 }
 
-/* Main Content */
+/* Views */
+.view {
+    display: none;
+}
+
+/*  Dashboard */
 #dashboard {
     padding: 2rem;
     display: flex;
@@ -74,7 +79,6 @@ button {
     gap: 2rem;
 }
 
-/* Summary Section */
 #summary {
     display: flex;
     gap: 2rem;
@@ -124,8 +128,73 @@ button {
     text-align: center;
 }
 
-#view-compliance-report {
-    font-size: 1.2rem;
+/* Cadastro de Ativos */
+#ativos-page {
+    padding: 2rem;
+}
+
+#cadastro-ativo label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#cadastro-ativo .input-field {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Cadastro de Controles */
+#controles-page {
+    padding: 2rem;
+}
+
+#cadastro-controle label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#cadastro-controle .input-field {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Relatório de Conformidade */
+#relatorio-conformidade-page {
+    padding: 2rem;
+}
+
+#relatorio-conformidade label {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+#filtros-conformidade {
+    margin-bottom: 1.5rem;
+}
+
+#tabela-relatorio {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+#tabela-relatorio th,
+#tabela-relatorio td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+#tabela-relatorio th {
+    background-color: #f4f4f4;
 }
 
 /* Footer */
@@ -146,5 +215,9 @@ button {
     #summary {
         flex-direction: column;
         align-items: center;
+    }
+
+    .summary-item {
+        max-width: 100%;
     }
 }
