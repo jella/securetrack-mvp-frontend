@@ -1,0 +1,99 @@
+
+// ===== dashboard.js =====
+
+/**
+
+Atualiza os contadores no dashboard com dados dinâmicos.
+
+@param {number} ativos Número de ativos.
+
+@param {number} controles Número de controles.
+*/
+function updateDashboardCounts(ativos, controles) {
+    document.getElementById('assets-count').textContent = ativos;
+    document.getElementById('controls-count').textContent = controles;
+}
+
+/**
+
+Configura eventos para os botões do dashboard.
+*/
+function setupDashboardEvents() {
+    document.getElementById('view-assets').addEventListener('click', () => loadView(VIEWS.ATIVOS));
+    document.getElementById('add-asset').addEventListener('click', () => loadView(VIEWS.ATIVOS));
+    document.getElementById('view-controls').addEventListener('click', () => loadView(VIEWS.CONTROLES));
+    document.getElementById('add-control').addEventListener('click', () => loadView(VIEWS.CONTROLES));
+    document.getElementById('view-compliance-report').addEventListener('click', () => loadView(VIEWS.CONFORMIDADE));
+}
+
+// ===== scripts.js =====
+
+/**
+
+Preenche dinamicamente a tabela de ativos com dados fornecidos.
+
+@param {Array} data Lista de ativos a serem exibidos.
+*/
+function loadAtivosTable(data) {
+const tableBody = document.querySelector('#tabela-ativos tbody');
+tableBody.innerHTML = '';
+
+data.forEach(item => {
+const row =          <tr>
+             <td>${item.nome}</td>
+             <td>${item.tipo}</td>
+             <td>${item.status}</td>
+             <td>${item.responsavel}</td>
+             <td>
+                 <button class="editar-ativo action-button" data-id="${item.id}">Editar</button>
+                 <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
+             </td>
+         </tr>
+    ;
+tableBody.insertAdjacentHTML('beforeend', row);
+});
+}
+
+/**
+
+Preenche dinamicamente a tabela de controles com dados fornecidos.
+
+@param {Array} data Lista de controles a serem exibidos.
+*/
+function loadControlesTable(data) {
+const tableBody = document.querySelector('#tabela-controles tbody');
+tableBody.innerHTML = '';
+
+data.forEach(item => {
+const row =          <tr>
+             <td>${item.descricao}</td>
+             <td>${item.categoria}</td>
+             <td>
+                 <button class="editar-controle action-button" data-id="${item.id}">Editar</button>
+                 <button class="remover-controle action-button" data-id="${item.id}">Remover</button>
+             </td>
+         </tr>
+    ;
+tableBody.insertAdjacentHTML('beforeend', row);
+});
+}
+
+/**
+
+Inicializa a aplicação.
+*/
+function initializeApp() {
+const links = document.querySelectorAll('.nav-link');
+setupNavigation(links);
+setupDashboardEvents();
+
+// Carrega a view inicial com base na URL ou padrão
+const initialView = window.location.hash.substring(1) || VIEWS.DASHBOARD;
+loadView(initialView);
+}
+
+// Função executada quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+initializeApp();
+setupHistoryListeners();
+});

@@ -1,0 +1,15 @@
+@startuml
+title Diagrama de Container para o MVP
+
+actor "Usuário" as User
+package "Sistema de Conformidade" {
+    rectangle "Front-End" as FrontEnd {
+        User --> FrontEnd : Interação via navegador
+        FrontEnd --> API : Comunicação via chamadas REST
+    }
+
+    rectangle "Back-End" as API {
+        API --> "Banco de Dados (SQLite)" : Persistência
+    }
+}
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+title Diagrama de Contexto do Sistema para o MVP
+
+actor "Usuário" as User
+package "MVP - Sistema de Conformidade" {
+    rectangle "Sistema de Conformidade" as System {
+        User --> System : Interação via interface web
+    }
+}
+
+package "Sistemas Externos" {
+    System --> "Sistema de Notificações" : Integração futura (opcional)
+}
+@enduml
