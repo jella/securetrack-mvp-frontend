@@ -278,14 +278,31 @@ button {
 }
 
 
-/* Footer */
-#main-footer {
-    background-color: #004080;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 2rem;
-    margin-top: 2rem;
+/* Estilo geral da página para layout sticky */
+html, body {
+    height: 100%; /* Garante que a página ocupe 100% da altura */
+    margin: 0; /* Remove margens padrão */
 }
+
+.page-container {
+    display: flex; /* Torna o contêiner flexível */
+    flex-direction: column; /* Empilha o conteúdo verticalmente */
+    min-height: 100%; /* Garante que a altura mínima seja 100% da tela */
+}
+
+main {
+    flex: 1; /* Faz o conteúdo principal ocupar o espaço disponível */
+}
+
+/* Footer sticky */
+#main-footer {
+    background-color: #004080; /* Fundo azul */
+    color: #fff; /* Texto branco */
+    text-align: center; /* Centraliza o texto */
+    padding: 1rem 2rem; /* Espaçamento interno */
+    margin-top: auto; /* Garante que o footer fique no final do contêiner */
+}
+
 
 .footer-text {
     font-size: 0.9rem;
@@ -335,3 +352,38 @@ button {
         font-size: 0.9rem;
     }
 }
+
+ 
+  
+  /* Estilo geral para tabelas */
+table {
+  width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+  border-collapse: collapse; /* Remove espaços entre células */
+  table-layout: auto; /* Permite que as colunas se ajustem automaticamente */
+}
+
+/* Aplica o estilo apenas ao <thead> dentro de .list-container */
+.list-container thead {
+    background-color: #004080;; /* Fundo azul */
+    color: #ffffff; /* Texto branco */
+    text-align: left; /* Alinha o texto à esquerda */
+    padding: 10px; /* Espaçamento interno */
+  }
+  
+  /* Estilo adicional para as células do cabeçalho */
+  .list-container thead th {
+    border: 1px solid #ddd; /* Borda fina ao redor das células */
+    padding: 8px; /* Espaçamento interno */
+  }
+  
+  .list-container table {
+    width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+    border-collapse: collapse; /* Remove os espaços entre células */
+  }
+  
+  .list-container table th,
+  .list-container table td {
+    border: 1px solid #ddd; /* Adiciona bordas */
+    padding: 8px; /* Espaçamento interno */
+  }
+  
