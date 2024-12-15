@@ -1,64 +1,15 @@
-
-
-/**
-
-Preenche de forma dinamica a tabela de ativos com os dados passados.
-
-@param {Array} data Lista de ativos que serão exibidos.
-*/
-
-function loadAtivosTable(data) {
-  const tableBody = document.querySelector('#tabela-ativos tbody');
-  tableBody.innerHTML = '';
-  
-  data.forEach(item => {
-    const row = `
-      <tr>
-        <td>${item.nome}</td>
-        <td>${item.tipo}</td>
-        <td>${item.status}</td>
-        <td>${item.responsavel}</td>
-        <td>
-          <button class="editar-ativo action-button" data-id="${item.id}">Editar</button>
-          <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
-        </td>
-      </tr>
-    `;
-    tableBody.insertAdjacentHTML('beforeend', row);
-  });
-}
-
   
   /**
   
-  Preenche dinamicamente a tabela de controles com dados passados.
-  
-  @param {Array} data Lista de controles a serem exibidos.
+  Executa as funçoes necessárias para iniciar o app.
+   */
 
-  */
-  function loadControlesTable(data) {
-  const tableBody = document.querySelector('#tabela-controles tbody');
-  tableBody.innerHTML = '';
-  
-  data.forEach(item => {
-  const row =`<tr>
-                <td>${item.descricao}</td>
-                <td>${item.categoria}</td>
-                <td>
-                    <button class="editar-controle action-button" data-id="${item.id}">Editar</button>
-                    <button class="remover-controle action-button" data-id="${item.id}">Remover</button>
-                </td>
-            </tr>
-      `;
-  tableBody.insertAdjacentHTML('beforeend', row);
-  });
-  }
-  
 
   function initializeApp() {
   const links = document.querySelectorAll('.nav-link');
   setupNavigation(links);
   setupDashboardEvents();
+
   updateDashboard()
 
   const initialView = window.location.hash.substring(1) || VIEWS.DASHBOARD;
@@ -103,27 +54,88 @@ async function apiPost(endpoint, data) {
   return response.json();
 }
 
-/**
-* Atualiza a tabela de ativos com dados da API.
-*/
+
 async function atualizarTabelaAtivos() {
+  const loadingElement = document.getElementById('ativos-loading');
+  if (loadingElement) loadingElement.style.display = 'block';
+
   try {
-      const ativos = await apiGet('/ativos');
-      loadAtivosTable(ativos);
+    const ativos = await apiGet('/ativos');
+    const tableBody = document.querySelector('#tabela-ativos tbody');
+    if (tableBody) {
+      tableBody.innerHTML = '';
+      ativos.forEach(item => {
+        tableBody.insertAdjacentHTML(
+          'beforeend',
+          `<tr>
+            <td>${item.nome}</td>
+            <td>${item.tipo}</td>
+            <td>${item.status}</td>
+            <td>${item.responsavel}</td>
+            <td>
+              <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
+            </td>
+          </tr>`
+        );
+      });
+    }
   } catch (error) {
-      console.error('Erro ao carregar ativos:', error);
+    console.error('Erro ao carregar ativos:', error);
+  } finally {
+    if (loadingElement) loadingElement.style.display = 'none';
   }
 }
 
 /**
-* Atualiza a tabela de controles com dados da API.
-*/
-async function atualizarTabelaControles() {
+ * Limpa todos os campos de um formulário usando o método reset.
+ * @param {string} formName - O ID do formulário a ser limpo.
+ */
+async function limpaCampoAtivos(formName) {
   try {
-      const controles = await apiGet('/controles');
-      loadControlesTable(controles);
+    const form = document.getElementById(formName);
+    if (form) {
+      form.reset(); 
+    } else {
+      throw new Error(`Formulário com o ID "${formName}" não encontrado.`);
+    }
   } catch (error) {
-      console.error('Erro ao carregar controles:', error);
+    console.error('Erro ao limpar campos do formulário:', error);
+  }
+}
+
+/**
+ * Atualiza a tabela de controles com dados da API.
+ */
+async function atualizarTabelaControles() {
+  const loadingElement = document.getElementById('controles-loading'); // Elemento de carregamento, caso exista
+  if (loadingElement) loadingElement.style.display = 'block'; // Exibir indicador de carregamento
+
+  try {
+    const controles = await apiGet('/controles'); // Chamada à API
+    const tableBody = document.querySelector('#tabela-controles tbody');
+    if (!tableBody) return; // Se a tabela não existir, termina a execução
+
+    // Reduz manipulações repetitivas no DOM
+    let html = '';
+    controles.forEach(item => {
+      html += `
+        <tr>
+          <td>${item.descricao}</td>
+          <td>${item.categoria}</td>
+          <td>${item.codigo}</td>
+          <td>${item.anotacoes}</td>
+          <td>
+            <button class="remover-controle action-button" data-id="${item.id}">Remover</button>
+          </td>
+        </tr>
+      `;
+    });
+
+    tableBody.innerHTML = html; // Atualiza o DOM apenas uma vez
+  } catch (error) {
+    console.error('Erro ao carregar controles:', error);
+  } finally {
+    if (loadingElement) loadingElement.style.display = 'none'; // Esconde indicador de carregamento
   }
 }
 
@@ -168,6 +180,7 @@ async function salvarControle(event) {
       console.error('Erro ao salvar controle:', error);
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();

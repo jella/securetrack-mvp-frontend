@@ -20,7 +20,7 @@ document.getElementById('add-control').addEventListener('click', () => loadView(
 document.getElementById('view-compliance-report').addEventListener('click', () => loadView(VIEWS.CONFORMIDADE));
 }
 
-
+//configura eventos para os botões do dashboard
 async function updateDashboard() {
     try {
         // Fazer chamadas GET para os endpoints de ativos e controles
