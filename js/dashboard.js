@@ -19,3 +19,18 @@ document.getElementById('view-controls').addEventListener('click', () => loadVie
 document.getElementById('add-control').addEventListener('click', () => loadView(VIEWS.CONTROLES));
 document.getElementById('view-compliance-report').addEventListener('click', () => loadView(VIEWS.CONFORMIDADE));
 }
+
+
+async function updateDashboard() {
+    try {
+        // Fazer chamadas GET para os endpoints de ativos e controles
+        const ativos = await apiGet('/ativos');
+        const controles = await apiGet('/controles');
+
+        // Atualizar os contadores no HTML
+        document.getElementById('assets-count').textContent = ativos.length;
+        document.getElementById('controls-count').textContent = controles.length;
+    } catch (error) {
+        console.error('Erro ao atualizar o dashboard:', error);
+    }
+}

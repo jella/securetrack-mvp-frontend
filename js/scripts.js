@@ -1,3 +1,5 @@
+
+
 /**
 
 Preenche de forma dinamica a tabela de ativos com os dados passados.
@@ -57,13 +59,13 @@ function loadAtivosTable(data) {
   const links = document.querySelectorAll('.nav-link');
   setupNavigation(links);
   setupDashboardEvents();
-  
+  updateDashboard()
 
   const initialView = window.location.hash.substring(1) || VIEWS.DASHBOARD;
+  alert('ta entrando initialize app') 
   loadView(initialView);
   }
   
-
  //funcoes para interagir com a api. 
 /**
  * Função para fazer chamadas GET à API.
