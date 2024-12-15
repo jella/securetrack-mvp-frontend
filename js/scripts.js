@@ -167,19 +167,7 @@ async function salvarControle(event) {
   }
 }
 
-/**
-* Inicializa os eventos do frontend com as integrações da API
-*/
-function inicializarEventosIntegracao() {
-  document.getElementById('form-cadastro-ativo')?.addEventListener('submit', salvarAtivo);
-  document.getElementById('form-cadastro-controle')?.addEventListener('submit', salvarControle);
-  //atualizarTabelaAtivos();
-  //atualizarTabelaControles();
-}
-
-
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
-  inicializarEventosIntegracao();
   setupHistoryListeners();
 });
