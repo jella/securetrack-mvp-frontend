@@ -21,7 +21,7 @@
             <li><a href="#dashboard-view" class="nav-link">Dashboard</a></li>
             <li><a href="#ativos-view" class="nav-link">Ativos</a></li>
             <li><a href="#controles-view" class="nav-link">Controles</a></li>
-            <li><a href="#conformidade-view" class="nav-link">Relatório</a></li>
+            <li><a href="#conformidade-view" class="nav-link">Relatório</a></li>           
         </ul>
     </nav>
 </header>
@@ -177,7 +177,7 @@
             <main id="relatorio-conformidade-page">
                 <section id="relatorio-conformidade">
                     <h2>Relatório de Conformidade</h2>
-
+                    <form id="form-relatorio" onsubmit="geraRelatorio(event)">
                     <!-- Filtros -->
                     <div id="filtros-conformidade">
                         <label for="filtro-status">Filtrar por status:</label>
@@ -187,8 +187,9 @@
                             <option value="nao-conforme">Não Conforme</option>
                             <option value="nao-conforme">Em Tratamento</option>
                         </select>
-                        <button id="aplicar-filtro" class="action-button">Aplicar Filtro</button>
+                        <button type='submit'  id="aplicar-filtro" class="action-button">Aplicar Filtro</button>
                     </div>
+                    <</form>
 
                     <!-- Tabela de Relatório -->
                     <div class="list-container">
@@ -210,6 +211,45 @@
         </div>
     </div>
 
+    <!-- view da Pagina associar controles -->
+    <div class="view-container">    
+    <div id="modal-associar-view" class="view" style="display: none;">    
+    <main id="modal-associar-page">
+    <!-- Modal de Associação -->
+        <section id="modal-associar" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Associar Controle ao Ativo</h2>
+                <form id="form-associar">
+                    <input type="hidden" id="ativo-id" name="ativo-id">
+                    
+                    <label for="controles">Controles Disponíveis:</label>
+                    <select id="controles" name="controle-id" multiple>
+                        <!-- Opções geradas dinamicamente -->
+                        <option value="1">Backup Diário</option>
+                        <option value="2">Firewall Ativo</option>
+                        <option value="3">Criptografia de Dados</option>
+                    </select>
+
+                    <label for="status">Status de Conformidade:</label>
+                    <select id="status" name="status">
+                        <option value="Conforme">Conforme</option>
+                        <option value="Não Conforme">Não Conforme</option>
+                    </select>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="action-button">Salvar</button>
+                        <button type="button" class="action-button" id="cancelar-associar">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        </div>
+        </div>
+
+      
+    </main>
+
+    
 <!-- Footer -->
 <footer id="main-footer">
     <p class="footer-text">© 2024 SecureTrack. Todos os direitos reservados.</p>
