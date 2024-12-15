@@ -73,6 +73,7 @@ async function atualizarTabelaAtivos() {
             <td>${item.responsavel}</td>
             <td>
               <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
+              <button class="associar-controle action-button" data-id="${item.id}">Associar Controle</button>
             </td>
           </tr>`
         );
@@ -180,6 +181,46 @@ async function salvarControle(event) {
   }
 }
 
+
+/**
+ * Atualiza a tabela de conformidade com os dados do backend.
+ * @param {string} statusFiltro - Filtro para o status (Conforme, Não Conforme ou vazio para todos).
+ */
+async function atualizarRelatorioConformidade(statusFiltro) {
+  try {
+      // Monta a URL com o filtro, se fornecido
+      const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status';
+
+      // Chamada ao endpoint do backend
+      const dadosConformidade = await apiGet(url);
+
+      // Seleciona o corpo da tabela
+      const tabelaRelatorio = document.querySelector('#tabela-relatorio tbody');
+      tabelaRelatorio.innerHTML = ''; // Limpa os dados anteriores
+
+      // Itera sobre os dados e cria as linhas da tabela
+      dadosConformidade.forEach(item => {
+          const linha = `
+              <tr>
+                  <td>${item.ativo}</td>
+                  <td>${item.controle}</td>
+                  <td>${item.status}</td>
+              </tr>
+          `;
+          tabelaRelatorio.insertAdjacentHTML('beforeend', linha);
+      });
+  } catch (error) {
+      console.error('Erro ao carregar o relatório de conformidade:', error);
+  }
+}
+
+
+async function geraRelatorio(event) {
+  event.preventDefault();
+  const statusFiltro = document.querySelector('#filtro-status').value; // Obtém o valor do filtro
+  atualizarRelatorioConformidade(statusFiltro); // Atualiza o relatório com o filtro
+ 
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
