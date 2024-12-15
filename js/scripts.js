@@ -13,7 +13,6 @@
   updateDashboard()
 
   const initialView = window.location.hash.substring(1) || VIEWS.DASHBOARD;
-  alert('ta entrando initialize app') 
   loadView(initialView);
   }
   
