@@ -32,6 +32,21 @@
             <main id="dashboard">
                 <!-- Summary Section -->
                 <section id="summary">
+                    <div class="summary-item" id="summary-implementados">
+                        <h2>Implementados</h2>
+                        <p class="summary-count" id="implementados-count">0</p>
+                        <p></p>
+                    </div>
+                    <div class="summary-item" id="summary-pendentes">
+                        <h2>Pendentes</h2>
+                        <p class="summary-count" id="pendentes-count">0</p>
+                        <p></p>                        
+                    </div>
+                    <div class="summary-item" id="summary-em-andamento">
+                        <h2>Em Andamento</h2>
+                        <p class="summary-count" id="em-andamento-count">0</p>
+                        <p></p>
+                    </div>                  
                     <div class="summary-item" id="summary-assets">
                         <h2>Ativos</h2>
                         <p class="summary-count" id="assets-count">0</p>
@@ -43,7 +58,6 @@
                         <button class="action-button" id="add-control">Novo Controle</button>
                     </div>
                 </section>
-
                 <!-- Actions Section -->
                 <section id="actions">
                     <button class="action-button" id="view-compliance-report">Relatório de Conformidade</button>
@@ -169,6 +183,46 @@
         </div>
     </div>
 
+    <!-- view da Página de Controles-associacao -->
+    <div class="view-container">
+        <div id="controles-associacao-view" class="view" style="display: none;">
+            <main id="controles-associacao-page">
+                <section id="associacao-controle">
+                    <h2>Lista de Controle de Segurança</h2>
+                    <form id="form-cadastro-controle" >
+
+                        <div id="controles-loading" style="display: none; text-align: center; margin-top: 10px;">
+                            <p>Carregando controles...</p>
+                        </div>
+
+                        <!-- Tabela de controle -->
+                        <div class="list-container">
+                            <table id="tabela-controles-associacao">
+                                <thead>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>Descrição do Controle</td>
+                                        <td>Categoria</td>
+                                        <td>Código Alfanumérico:</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Linhas de relatório serão preenchidas dinamicamente -->
+
+                                </tbody>
+                            </table>
+
+                            <div class="form-buttons">
+                                <button id="salvar-conformidade" onClick="salvarConformidade()" class="action-button">Salvar Conformidade</button>
+                                <button type="button" class="action-button" id="cancelar-conformidade">Cancelar</button>
+                            </div>
+                        </div>
+                     </form>
+                </section>
+            </main>
+        </div>
+    </div>
+       
     <!-- view da Pagina com o Relatório de conformidade -->
     <div class="view-container">
         <div id="conformidade-view" class="view" style="display: none;">
@@ -181,9 +235,9 @@
                         <label for="filtro-status">Filtrar por status:</label>
                         <select id="filtro-status" class="input-field" name="filtro-status">
                             <option value="todos">Todos</option>
-                            <option value="conforme">Conforme</option>
-                            <option value="nao-conforme">Não Conforme</option>
-                            <option value="nao-conforme">Em Tratamento</option>
+                            <option value="implementado">Implementado</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="">Em Andamento</option>
                         </select>
                         <button type='submit'  id="aplicar-filtro" class="action-button">Aplicar Filtro</button>
                     </div>
@@ -204,48 +258,13 @@
                         </tbody>
                     </table>
                     </div>
+                    </form>
                 </section>
             </main>
         </div>
     </div>
 
-    <!-- view da Pagina associar controles -->
-    <div class="view-container">    
-    <div id="modal-associar-view" class="view" style="display: none;">    
-    <main id="modal-associar-page">
-    <!-- Modal de Associação -->
-        <section id="modal-associar" class="modal" style="display: none;">
-            <div class="modal-content">
-                <h2>Associar Controle ao Ativo</h2>
-                <form id="form-associar">
-                    <input type="hidden" id="ativo-id" name="ativo-id">
-                    
-                    <label for="controles">Controles Disponíveis:</label>
-                    <select id="controles" name="controle-id" multiple>
-                        <!-- Opções geradas dinamicamente -->
-                        <option value="1">Backup Diário</option>
-                        <option value="2">Firewall Ativo</option>
-                        <option value="3">Criptografia de Dados</option>
-                    </select>
 
-                    <label for="status">Status de Conformidade:</label>
-                    <select id="status" name="status">
-                        <option value="Conforme">Conforme</option>
-                        <option value="Não Conforme">Não Conforme</option>
-                    </select>
-
-                    <div class="form-buttons">
-                        <button type="submit" class="action-button">Salvar</button>
-                        <button type="button" class="action-button" id="cancelar-associar">Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-        </div>
-        </div>
-
-      
-    </main>
 
     
 <!-- Footer -->
@@ -253,8 +272,9 @@
     <p class="footer-text">© 2024 SecureTrack. Todos os direitos reservados.</p>
 </footer>
 </div>
-<script src="./js/scripts.js"></script>
 <script src="./js/navigation.js"></script>
 <script src="./js/dashboard.js"></script>
+<script src="./js/scripts.js"></script>
+</div>    
 </body>
 </html>

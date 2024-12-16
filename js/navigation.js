@@ -4,7 +4,8 @@ const VIEWS = {
 DASHBOARD: 'dashboard-view',
 ATIVOS: 'ativos-view',
 CONTROLES: 'controles-view',
-CONFORMIDADE: 'conformidade-view'
+CONFORMIDADE: 'conformidade-view',
+ASSOCIACAO: 'controles-associacao-view'
 };
 
 
@@ -26,12 +27,33 @@ function loadView(viewId) {
       if (viewId === VIEWS.ATIVOS) atualizarTabelaAtivos();
       if (viewId === VIEWS.CONTROLES) atualizarTabelaControles();
       if (viewId === VIEWS.DASHBOARD) updateDashboard();
+      //if (viewId === VIEWS.ASSOCIACAO) atualizarTabelaAssociacaoControles();
+
+    
+
     } else {
       console.error(`View com ID "${viewId}" não encontrada.`);
     }
   }
   
+  function loadViewAssociacao(viewId,id) {
+    if (currentView === viewId) return;
+  
+    const views = document.querySelectorAll('.view');
+    views.forEach(view => (view.style.display = 'none'));
+  
+    const newView = document.getElementById(viewId);
+    if (newView) {
+      newView.style.display = 'block';
+      currentView = viewId;
+      window.history.pushState({ view: viewId }, '', `#${viewId}`);
+  
+      if (viewId === VIEWS.ASSOCIACAO) atualizarTabelaAssociacaoControles(id);
 
+    } else {
+      console.error(`View com ID "${viewId}" não encontrada.`);
+    }
+  }
 // /**
 //  * Função para carregar e exibir a view especificada.
 //  * @param {string} viewId O ID da view que será carregada.
@@ -109,7 +131,6 @@ loadView(targetView);
 });
 });
 }
-
     
 
 //Configura os ouvintes para manipulaão do historico do navegador.
