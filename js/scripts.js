@@ -53,6 +53,25 @@ async function apiPost(endpoint, data) {
   return response.json();
 }
 
+/**
+ * Função para fazer chamadas DELETE à API.
+ * @param {string} endpoint - O endpoint da API (deve incluir o ID do recurso a ser removido).
+ * @returns {Promise<any>} - A resposta da API em formato JSON.
+ */
+async function apiDelete(endpoint) {
+  const response = await fetch(`http://127.0.0.1:3001${endpoint}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Erro ao deletar recurso: ${response.statusText}`);
+  }
+  return response.json(); // Retorna a resposta da API, se houver
+}
+
 
 async function atualizarTabelaAtivos() {
   const loadingElement = document.getElementById('ativos-loading');
@@ -72,7 +91,7 @@ async function atualizarTabelaAtivos() {
             <td>${item.status}</td>
             <td>${item.responsavel}</td>
             <td>
-              <button class="remover-ativo action-button" data-id="${item.id}">Remover</button>
+              <button class="remover-ativo action-button" onclick="deletarAtivo(${item.id})">Remover</button>
               <button class="associar-controle action-button" data-id="${item.id}">Associar Controle</button>
             </td>
           </tr>`
@@ -160,6 +179,31 @@ async function salvarAtivo(event) {
       console.error('Erro ao salvar ativo:', error);
   }
 }
+
+/**
+ * Remove um ativo via API.
+ * @param {number} ativoId - O ID do ativo a ser removido.
+ */
+async function deletarAtivo(ativoId) {
+  // Confirma a exclusão
+  const confirmacao = confirm('Tem certeza que deseja remover este ativo?');
+  if (!confirmacao) return;
+
+  try {
+    // Faz a chamada para a API usando apiDelete
+    const resultado = await apiDelete(`/ativos/${ativoId}`);
+    alert(resultado.message || 'Ativo removido com sucesso!');
+
+    // Encontra e remove a linha correspondente no DOM
+    const linha = document.querySelector(`button[onclick="deletarAtivo(${ativoId})"]`).closest('tr');
+    if (linha) linha.remove();
+  } catch (error) {
+    console.error('Erro ao remover ativo:', error);
+    alert('Falha ao remover ativo.');
+  }
+}
+
+
 
 /**
 * Salva um novo controle via API.
