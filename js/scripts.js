@@ -144,7 +144,7 @@ async function atualizarTabelaControles() {
           <td>${item.codigo}</td>
           <td>${item.anotacoes}</td>
           <td>
-            <button class="remover-controle action-button" data-id="${item.id}">Remover</button>
+             <button class="remover-controle action-button" onclick="deletarControle(${item.id})">Remover</button>
           </td>
         </tr>
       `;
@@ -224,6 +224,30 @@ async function salvarControle(event) {
       console.error('Erro ao salvar controle:', error);
   }
 }
+
+/**
+ * Remove um controle via API.
+ * @param {number} controleId - O ID do controle a ser removido.
+ */
+async function deletarControle(controleId) {
+  // Confirma a exclusão
+  const confirmacao = confirm('Tem certeza que deseja remover este controle?');
+  if (!confirmacao) return;
+
+  try {
+    // Faz a chamada para a API usando apiDelete
+    const resultado = await apiDelete(`/controles/${controleId}`);
+    alert(resultado.message || 'Controle removido com sucesso!');
+
+    // Encontra e remove a linha correspondente no DOM
+    const linha = document.querySelector(`button[onclick="deletarControle(${controleId})"]`).closest('tr');
+    if (linha) linha.remove();
+  } catch (error) {
+    console.error('Erro ao remover controle:', error);
+    alert('Falha ao remover controle.');
+  }
+}
+
 
 
 /**
