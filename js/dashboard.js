@@ -29,7 +29,7 @@ async function updateDashboard() {
 
       // Monta a URL com o filtro, se fornecido
       statusFiltro = 'Pendente'
-      const url = statusFiltro ? `/conformidade/status?status='${statusFiltro}'` : '/conformidade/status';
+      const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status';
 
       // Chamada ao endpoint do backend
       const dadosConformidadePendentes = await apiGet(url);

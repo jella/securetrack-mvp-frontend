@@ -58,7 +58,7 @@ async function apiPost(endpoint, data) {
 * @returns {Promise<any>} - A resposta da API em formato JSON.
 */
 async function apiPUT(endpoint, data) {
-  const response = await fetch(`http://127.0.0.1:3001${endpoint}/`, {
+  const response = await fetch(`http://127.0.0.1:3001${endpoint}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
