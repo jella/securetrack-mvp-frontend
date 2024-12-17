@@ -133,7 +133,11 @@ loadView(targetView);
 }
     
 
-//Configura os ouvintes para manipulaão do historico do navegador.
+/**
+
+funçao que adiciona ouvintes de eventos.
+
+*/
 function setupHistoryListeners() {
 window.addEventListener('popstate', (event) => {
 const view = event.state?.view || VIEWS.DASHBOARD;

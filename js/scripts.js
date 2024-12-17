@@ -44,8 +44,28 @@ async function apiPost(endpoint, data) {
       },
       body: JSON.stringify(data),
   });
+   
+  if (!response.ok) {
+      throw new Error(`Erro ao enviar dados: ${response.statusText}`);
+  }
+  return response.json();
+}
 
-  
+/**
+* Função para fazer chamadas POST à API.
+* @param {string} endpoint - O endpoint da API.
+* @param {object} data - Os dados para envio no corpo da requisição.
+* @returns {Promise<any>} - A resposta da API em formato JSON.
+*/
+async function apiPUT(endpoint, data) {
+  const response = await fetch(`http://127.0.0.1:3001${endpoint}/`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+  });
+   
   if (!response.ok) {
       throw new Error(`Erro ao enviar dados: ${response.statusText}`);
   }
@@ -167,12 +187,12 @@ async function atualizarTabelaAssociacaoControles(id) {
 
   try {
     const controles = await apiGet('/controles'); // Chamada à API
-    const ativo = await apiGet('/ativos'+id); // Chamada à API
+    const ativo = await apiGet('/ativos/'+ id); // Chamada à API
     const tableBody = document.querySelector('#tabela-controles-associacao tbody');
     if (!tableBody) return; // Se a tabela não existir, termina a execução
 
     // Reduz manipulações repetitivas no DOM
-    let html = "<input type='hidden' id='ativo-id' data-id='"+ id +"'> Ativo:" + ativo.nome;
+    let html = "Ativo:" + ativo.nome  +  "<input type='hidden' id='ativo-id' data-id='"+ id +"'>";
     controles.forEach(item => {
       html += `
         <tr>
@@ -272,6 +292,49 @@ async function salvarControle(event) {
 }
 
 
+/**
+ * Função para associar controles a um ativo.
+ * Envia requisições POST ou PUT para criar ou atualizar associações.
+ * @param {number} ativoId - O ID do ativo.
+ */
+async function salvarAssociacoes(ativoId) {
+    try {
+        // Captura todos os checkboxes da lista de controles
+        const checkboxes = document.querySelectorAll('.controle-checkbox');
+
+        for (const checkbox of checkboxes) {
+            const controleId = checkbox.dataset.controleId; // Captura o ID do controle associado
+            const isChecked = checkbox.checked; // Verifica se o checkbox está marcado
+
+            if (isChecked) {
+                // Tenta associar com POST
+                const response = await fetch(`/conformidade`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ativo_id: ativoId,
+                        controle_id: controleId,
+                        status: "Pendente"
+                    }),
+                });
+
+                // Caso o POST falhe (já existe), envia PUT para atualizar
+                if (!response.ok && response.status === 400) {
+                    await fetch(`/conformidade/${ativoId}/${controleId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: "Conforme" }),
+                    });
+                }
+            }
+        }
+
+        alert("Associações salvas com sucesso!");
+    } catch (error) {
+        console.error("Erro ao salvar associações:", error);
+        alert("Ocorreu um erro ao salvar as associações.");
+    }
+}
 
 async function salvarConformidade() {
   try {
@@ -297,21 +360,21 @@ async function salvarConformidade() {
       // Dados a serem enviados para o backend
       const dadosConformidade = {
           ativoId: ativoId,
-          controleIds: controleIds,
+          controleIds: controleIds
       };
 
       // Faz a chamada à API para salvar a conformidade
       const response = await apiPost('/conformidade', dadosConformidade);
-
+      alert(dadosConformidade)
       // Exibe uma mensagem de sucesso ao usuário
       alert(response.message || 'Conformidade salva com sucesso!');
       console.log('Resposta da API:', response);
+      alert(response)
 
       // Opcional: Atualizar a tabela ou interface
       loadView(view)
   } catch (error) {
       console.error('Erro ao salvar conformidade:', error);
-      alert('Falha ao salvar conformidade.');
   }
 }
 
