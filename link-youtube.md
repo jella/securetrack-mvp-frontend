@@ -1,1 +1,2 @@
-Link do youtube: www.youtube.com
+Link do youtube: [Apresentação telas MVP não concluida.](https://www.youtube.com/watch?v=kxtnlJUBlZk)
+Em andamento o Prazo foi prorrogado para dia 22/12. Irei atualizar o link assim que entregar o MVP completo e a gravação. Grata;
