@@ -1,2 +1,1 @@
 Link do youtube: [https://youtu.be/EuUumRtKf3I](https://youtu.be/EuUumRtKf3I)
-Em andamento o Prazo foi prorrogado para dia 22/12. Irei atualizar o link assim que entregar o MVP completo e a gravação. Grata;
