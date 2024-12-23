@@ -117,6 +117,7 @@ async function atualizarTabelaAtivos() {
           </tr>`
         );
       });
+      limpaCampoAtivos('form-cadastro-ativo')
     }
   } catch (error) {
     console.error('Erro ao carregar ativos:', error);
@@ -214,7 +215,7 @@ async function atualizarTabelaAssociacaoControles(id) {
 
       `;
     });
-
+    limpaCampoAtivos('="form-cadastro-controle"')
     tableBody.innerHTML = html; // Atualiza o DOM apenas uma vez
   } catch (error) {
     console.error('Erro ao carregar controles:', error);

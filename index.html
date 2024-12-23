@@ -74,7 +74,7 @@
                 <!-- Section: Cadastro de Ativo -->
                 <section id="cadastro-ativo">
                     <h2>Cadastro de Ativo</h2>
-                    <form id="form-cadastro-ativo" onsubmit="salvarAtivo(event)">
+                    <form name="form-cadastro-ativo" id="form-cadastro-ativo" onsubmit="salvarAtivo(event)">
                         <label for="nome-ativo">Nome:</label>
                         <input type="text" id="nome-ativo" class="input-field" name="nome-ativo" required>
                         
@@ -190,7 +190,7 @@
             <main id="controles-associacao-page">
                 <section id="associacao-controle">
                     <h2>Lista de Controle de Segurança</h2>
-                    <form id="form-cadastro-controle" >
+                    <form name="form-cadastro-controle" id="form-cadastro-controle" >
 
                         <div id="controles-loading" style="display: none; text-align: center; margin-top: 10px;">
                             <p>Carregando controles...</p>
