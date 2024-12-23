@@ -23,7 +23,7 @@
  * @returns {Promise<any>} - A resposta da API em formato JSON.
  */
 async function apiGet(endpoint) {
-  const response = await fetch(`http://127.0.0.1:3001${endpoint}`);
+  const response = await fetch(`http://127.0.0.1:5000${endpoint}`);
   if (!response.ok) {
       throw new Error(`Erro ao buscar dados: ${response.statusText}`);
   }
@@ -37,7 +37,7 @@ async function apiGet(endpoint) {
 * @returns {Promise<any>} - A resposta da API em formato JSON.
 */
 async function apiPost(endpoint, data) {
-  const response = await fetch(`http://127.0.0.1:3001${endpoint}/`, {
+  const response = await fetch(`http://127.0.0.1:5000${endpoint}/`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ async function apiPost(endpoint, data) {
 * @returns {Promise<any>} - A resposta da API em formato JSON.
 */
 async function apiPUT(endpoint, data) {
-  const response = await fetch(`http://127.0.0.1:3001${endpoint}`, {
+  const response = await fetch(`http://127.0.0.1:5000${endpoint}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ async function apiPUT(endpoint, data) {
  * @returns {Promise<any>} - A resposta da API em formato JSON.
  */
 async function apiDelete(endpoint) {
-  const response = await fetch(`http://127.0.0.1:3001${endpoint}`, {
+  const response = await fetch(`http://127.0.0.1:5000${endpoint}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
