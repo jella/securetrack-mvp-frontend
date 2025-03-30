@@ -1,3 +1,5 @@
+import { api } from "./scripts";
+
 /**
 
 funçao que atualiza os contadores no dashboard com dados passados de forma dimâmica.
@@ -23,28 +25,22 @@ document.getElementById('view-compliance-report')?.addEventListener('click', () 
 //configura eventos para os botões do dashboard
 async function updateDashboard() {
     try {
-        // Fazer chamadas GET para os endpoints de ativos e controles
-        const ativos = await apiGet('/ativos');
-        const controles = await apiGet('/controles');
-
-      // Monta a URL com o filtro, se fornecido
-      statusFiltro = 'Pendente'
-      const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status';
+      // Fazer chamadas GET para os endpoints de ativos e controles
+      const ativos = await api.get('/ativos');
+      const controles = await api.get('/controles');
 
       // Chamada ao endpoint do backend
-      const dadosConformidadePendentes = await apiGet(url);
-      const dadosConformidadeEmAndamento = await apiGet(url);
-      const dadosConformidadeImplementadas = await apiGet(url);
+      const dadosConformidadePendentes = await api.get(`/conformidade/status?status='Pendente'}`);
+      const dadosConformidadeEmAndamento = await api.get(`/conformidade/status?status='Andamento'}`);
+      const dadosConformidadeImplementadas = await api.get(`/conformidade/status?status='Implementada'}`);
+      const conformidade = await api.get('/conformidade');
 
-
-// -------        const conformidade = await apiGet('/controles');
-
-        // Atualizar os contadores no HTML
-        document.getElementById('assets-count').textContent = ativos.length;
-        document.getElementById('controls-count').textContent = controles.length;
-        document.getElementById('pendentes-count').textContent = dadosConformidadePendentes.length;
-        document.getElementById('em-andamento-count').textContent = dadosConformidadeEmAndamento.length;
-        document.getElementById('implementados-count').textContent = dadosConformidadeImplementadas.length;
+      // Atualizar os contadores no HTML
+      document.getElementById('assets-count').textContent = ativos.length;
+      document.getElementById('controls-count').textContent = controles.length;
+      document.getElementById('pendentes-count').textContent = dadosConformidadePendentes.length;
+      document.getElementById('em-andamento-count').textContent = dadosConformidadeEmAndamento.length;
+      document.getElementById('implementados-count').textContent = dadosConformidadeImplementadas.length;
 
     } catch (error) {
         console.error('Erro ao atualizar o dashboard:', error);

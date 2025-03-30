@@ -1,11 +1,45 @@
   
-  /**
-  
-  Executa as funçoes necessárias para iniciar o app.
-   */
+const API_BASE_URL = 'ttp://127.0.0.1:5000';
+
+async function makeRequest(method, endpoint, data = null, headers = {}) {
+  const url = `${API_BASE_URL}${endpoint}`;
+  const config = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...headers,
+    },
+  };
+
+  if (data) {
+    config.body = JSON.stringify(data);
+  }
+
+  try {
+    const response = await fetch(url, config);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Erro na requisição');
+    }
+    return await response.json().catch(() => ({}));
+  } catch (error) {
+    console.error(`Erro em ${method} ${endpoint}:`, error.message);
+    throw error;
+  }
+}
 
 
-  function initializeApp() {
+// Cria o objeto `api` com métodos prontos
+export const api = {
+  get: (endpoint, headers = {}) => makeRequest('GET', endpoint, null, headers),
+  post: (endpoint, data, headers = {}) => makeRequest('POST', endpoint, data, headers),
+  put: (endpoint, data, headers = {}) => makeRequest('PUT', endpoint, data, headers),
+  delete: (endpoint, headers = {}) => makeRequest('DELETE', endpoint, null, headers),
+};
+/**
+Executa as funçoes necessárias para iniciar o app.
+  */
+function initializeApp() {
   const links = document.querySelectorAll('.nav-link');
   setupNavigation(links);
   setupDashboardEvents();
@@ -15,89 +49,13 @@
   const initialView = window.location.hash.substring(1) || VIEWS.DASHBOARD;
   loadView(initialView);
   }
-  
- //funcoes para interagir com a api. 
-/**
- * Função para fazer chamadas GET à API.
- * @param {string} endpoint - O endpoint da API.
- * @returns {Promise<any>} - A resposta da API em formato JSON.
- */
-async function apiGet(endpoint) {
-  const response = await fetch(`http://127.0.0.1:5000${endpoint}`);
-  if (!response.ok) {
-      throw new Error(`Erro ao buscar dados: ${response.statusText}`);
-  }
-  return response.json();
-}
-
-/**
-* Função para fazer chamadas POST à API.
-* @param {string} endpoint - O endpoint da API.
-* @param {object} data - Os dados para envio no corpo da requisição.
-* @returns {Promise<any>} - A resposta da API em formato JSON.
-*/
-async function apiPost(endpoint, data) {
-  const response = await fetch(`http://127.0.0.1:5000${endpoint}/`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-  });
-   
-  if (!response.ok) {
-      throw new Error(`Erro ao enviar dados: ${response.statusText}`);
-  }
-  return response.json();
-}
-
-/**
-* Função para fazer chamadas POST à API.
-* @param {string} endpoint - O endpoint da API.
-* @param {object} data - Os dados para envio no corpo da requisição.
-* @returns {Promise<any>} - A resposta da API em formato JSON.
-*/
-async function apiPUT(endpoint, data) {
-  const response = await fetch(`http://127.0.0.1:5000${endpoint}`, {
-      method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-  });
-   
-  if (!response.ok) {
-      throw new Error(`Erro ao enviar dados: ${response.statusText}`);
-  }
-  return response.json();
-}
-
-/**
- * Função para fazer chamadas DELETE à API.
- * @param {string} endpoint - O endpoint da API (deve incluir o ID do recurso a ser removido).
- * @returns {Promise<any>} - A resposta da API em formato JSON.
- */
-async function apiDelete(endpoint) {
-  const response = await fetch(`http://127.0.0.1:5000${endpoint}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Erro ao deletar recurso: ${response.statusText}`);
-  }
-  return response.json(); // Retorna a resposta da API, se houver
-}
-
 
 async function atualizarTabelaAtivos() {
   const loadingElement = document.getElementById('ativos-loading');
   if (loadingElement) loadingElement.style.display = 'block';
 
   try {
-    const ativos = await apiGet('/ativos');
+    const ativos = await api.get('/ativos');
     const tableBody = document.querySelector('#tabela-ativos tbody');
     const teste = VIEWS.ASSOCIACAO;
     if (tableBody) {
@@ -151,7 +109,7 @@ async function atualizarTabelaControles() {
   if (loadingElement) loadingElement.style.display = 'block'; // Exibir indicador de carregamento
 
   try {
-    const controles = await apiGet('/controles'); // Chamada à API
+    const controles = await api.get('/controles'); // Chamada à API
     const tableBody = document.querySelector('#tabela-controles tbody');
     if (!tableBody) return; // Se a tabela não existir, termina a execução
 
@@ -187,8 +145,8 @@ async function atualizarTabelaAssociacaoControles(id) {
   if (loadingElement) loadingElement.style.display = 'block'; // Exibir indicador de carregamento
 
   try {
-    const controles = await apiGet('/controles'); // Chamada à API
-    const ativo = await apiGet('/ativos/'+ id); // Chamada à API
+    const controles = await api.get('/controles'); // Chamada à API
+    const ativo = await api.get('/ativos/'+ id); // Chamada à API
     const tableBody = document.querySelector('#tabela-controles-associacao tbody');
     if (!tableBody) return; // Se a tabela não existir, termina a execução
 
@@ -240,7 +198,7 @@ async function salvarAtivo(event) {
       observacoes: document.getElementById('observacoes-ativo').value,
   };
   try {
-      await apiPost('/ativos', dadosAtivo);
+      await api.post('/ativos', dadosAtivo);
       atualizarTabelaAtivos();
   } catch (error) {
       console.error('Erro ao salvar ativo:', error);
@@ -257,8 +215,8 @@ async function deletarAtivo(ativoId) {
   if (!confirmacao) return;
 
   try {
-    // Faz a chamada para a API usando apiDelete
-    const resultado = await apiDelete(`/ativos/${ativoId}`);
+    // Faz a chamada para a API usando api.delete
+    const resultado = await api.delete(`/ativos/${ativoId}`);
     alert(resultado.message || 'Ativo removido com sucesso!');
 
     // Encontra e remove a linha correspondente no DOM
@@ -285,7 +243,7 @@ async function salvarControle(event) {
       anotacoes: document.getElementById('anotacoes-controle').value,
   };
   try {
-      await apiPost('/controles', dadosControle);
+      await api.post('/controles', dadosControle);
       atualizarTabelaControles();
   } catch (error) {
       console.error('Erro ao salvar controle:', error);
@@ -365,7 +323,7 @@ async function salvarConformidade() {
       };
 
       // Faz a chamada à API para salvar a conformidade
-      const response = await apiPost('/conformidade', dadosConformidade);
+      const response = await api.post('/conformidade', dadosConformidade);
       alert(dadosConformidade)
       // Exibe uma mensagem de sucesso ao usuário
       alert(response.message || 'Conformidade salva com sucesso!');
@@ -390,8 +348,8 @@ async function deletarControle(controleId) {
   if (!confirmacao) return;
 
   try {
-    // Faz a chamada para a API usando apiDelete
-    const resultado = await apiDelete(`/controles/${controleId}`);
+    // Faz a chamada para a API usando api.delete
+    const resultado = await api.delete(`/controles/${controleId}`);
     alert(resultado.message || 'Controle removido com sucesso!');
 
     // Encontra e remove a linha correspondente no DOM
@@ -415,7 +373,7 @@ async function atualizarRelatorioConformidade(statusFiltro) {
       const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status';
 
       // Chamada ao endpoint do backend
-      const dadosConformidade = await apiGet(url);
+      const dadosConformidade = await api.get(url);
 
       // Seleciona o corpo da tabela
       const tabelaRelatorio = document.querySelector('#tabela-relatorio tbody');
