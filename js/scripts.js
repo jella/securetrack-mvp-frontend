@@ -1,5 +1,5 @@
   
-const API_BASE_URL = 'ttp://127.0.0.1:5000';
+const API_BASE_URL = 'http://127.0.0.1:5000';
 
 async function makeRequest(method, endpoint, data = null, headers = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -29,13 +29,14 @@ async function makeRequest(method, endpoint, data = null, headers = {}) {
 }
 
 
-// Cria o objeto `api` com métodos prontos
-export const api = {
+// Define o objeto global `api`
+window.api = {
   get: (endpoint, headers = {}) => makeRequest('GET', endpoint, null, headers),
   post: (endpoint, data, headers = {}) => makeRequest('POST', endpoint, data, headers),
   put: (endpoint, data, headers = {}) => makeRequest('PUT', endpoint, data, headers),
   delete: (endpoint, headers = {}) => makeRequest('DELETE', endpoint, null, headers),
 };
+
 /**
 Executa as funçoes necessárias para iniciar o app.
   */

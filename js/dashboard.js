@@ -1,5 +1,3 @@
-import { api } from "./scripts";
-
 /**
 
 funçao que atualiza os contadores no dashboard com dados passados de forma dimâmica.
