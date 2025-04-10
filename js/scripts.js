@@ -3,8 +3,10 @@ const API_BASE_URL = 'http://127.0.0.1:5000';
 
 async function makeRequest(method, endpoint, data = null, headers = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
+
   const config = {
     method,
+    credentials: 'include', // <- Adicione isso
     headers: {
       'Content-Type': 'application/json',
       ...headers,
@@ -56,7 +58,7 @@ async function atualizarTabelaAtivos() {
   if (loadingElement) loadingElement.style.display = 'block';
 
   try {
-    const ativos = await api.get('/ativos');
+    const ativos = await api.get('/ativos/');
     const tableBody = document.querySelector('#tabela-ativos tbody');
     const teste = VIEWS.ASSOCIACAO;
     if (tableBody) {
@@ -146,8 +148,8 @@ async function atualizarTabelaAssociacaoControles(id) {
   if (loadingElement) loadingElement.style.display = 'block'; // Exibir indicador de carregamento
 
   try {
-    const controles = await api.get('/controles'); // Chamada à API
-    const ativo = await api.get('/ativos/'+ id); // Chamada à API
+    const controles = await api.get('/controles/'); // Chamada à API
+    const ativo = await api.get('/ativos/'+ id + "/"); // Chamada à API
     const tableBody = document.querySelector('#tabela-controles-associacao tbody');
     if (!tableBody) return; // Se a tabela não existir, termina a execução
 
@@ -199,7 +201,7 @@ async function salvarAtivo(event) {
       observacoes: document.getElementById('observacoes-ativo').value,
   };
   try {
-      await api.post('/ativos', dadosAtivo);
+      await api.post('/ativos/', dadosAtivo);
       atualizarTabelaAtivos();
   } catch (error) {
       console.error('Erro ao salvar ativo:', error);
@@ -217,7 +219,7 @@ async function deletarAtivo(ativoId) {
 
   try {
     // Faz a chamada para a API usando api.delete
-    const resultado = await api.delete(`/ativos/${ativoId}`);
+    const resultado = await api.delete(`/ativos/${ativoId}/`);
     alert(resultado.message || 'Ativo removido com sucesso!');
 
     // Encontra e remove a linha correspondente no DOM

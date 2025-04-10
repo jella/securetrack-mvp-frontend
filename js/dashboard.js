@@ -24,8 +24,8 @@ document.getElementById('view-compliance-report')?.addEventListener('click', () 
 async function updateDashboard() {
     try {
       // Fazer chamadas GET para os endpoints de ativos e controles
-      const ativos = await api.get('/ativos');
-      const controles = await api.get('/controles');
+      const ativos = await api.get('/ativos/');
+      const controles = await api.get('/controles/');
 
       // Chamada ao endpoint do backend
       const dadosConformidadePendentes = await api.get(`/conformidade/status?status='Pendente'}`);
