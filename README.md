@@ -58,8 +58,8 @@ O front-end consome a API do backend para gerenciar os dados. Certifique-se de q
 Certifique-se de que o backend está rodando em [http://127.0.0.1:5000/](http://127.0.0.1:5000/). Acesse os seguintes endpoints para interagir com a API:
 
 - **Listar Ativos (GET):** `/ativos`
-- **Criar Ativo (POST):** `/ativos`
-- **Listar Controles (GET):** `/controles`
+- **Criar Ativo (POST):** `/ativos/`
+- **Listar Controles (GET):** `/controles/`
 
 ---
 

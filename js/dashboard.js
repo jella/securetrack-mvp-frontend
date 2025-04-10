@@ -31,7 +31,7 @@ async function updateDashboard() {
       const dadosConformidadePendentes = await api.get(`/conformidade/status?status='Pendente'}`);
       const dadosConformidadeEmAndamento = await api.get(`/conformidade/status?status='Andamento'}`);
       const dadosConformidadeImplementadas = await api.get(`/conformidade/status?status='Implementada'}`);
-      const conformidade = await api.get('/conformidade');
+      const conformidade = await api.get('/conformidade/');
 
       // Atualizar os contadores no HTML
       document.getElementById('assets-count').textContent = ativos.length;

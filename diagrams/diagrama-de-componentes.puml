@@ -3,11 +3,11 @@ title Diagrama de Componentes para o Back-End do MVP
 
 package "Back-End" as Backend {
     component "Camada de Controle" as Controllers {
-        [Rota: POST /ativos]
-        [Rota: GET /ativos]
-        [Rota: POST /controles]
-        [Rota: GET /controles]
-        [Rota: GET /conformidade/status]
+        [Rota: POST /ativos/]
+        [Rota: GET /ativos/]
+        [Rota: POST /controles/]
+        [Rota: GET /controles/]
+        [Rota: GET /conformidade/status/]
     }
 
     component "Camada de Serviço" as Services {

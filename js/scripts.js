@@ -1,5 +1,5 @@
   
-const API_BASE_URL = 'http://127.0.0.1:5000';
+const API_BASE_URL = 'http://127.0.0.1:5000/';
 
 async function makeRequest(method, endpoint, data = null, headers = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -112,7 +112,7 @@ async function atualizarTabelaControles() {
   if (loadingElement) loadingElement.style.display = 'block'; // Exibir indicador de carregamento
 
   try {
-    const controles = await api.get('/controles'); // Chamada à API
+    const controles = await api.get('/controles/'); // Chamada à API
     const tableBody = document.querySelector('#tabela-controles tbody');
     if (!tableBody) return; // Se a tabela não existir, termina a execução
 
@@ -246,7 +246,7 @@ async function salvarControle(event) {
       anotacoes: document.getElementById('anotacoes-controle').value,
   };
   try {
-      await api.post('/controles', dadosControle);
+      await api.post('/controles/', dadosControle);
       atualizarTabelaControles();
   } catch (error) {
       console.error('Erro ao salvar controle:', error);
@@ -270,7 +270,7 @@ async function salvarAssociacoes(ativoId) {
 
             if (isChecked) {
                 // Tenta associar com POST
-                const response = await fetch(`/conformidade`, {
+                const response = await fetch(`/conformidade/`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -282,7 +282,7 @@ async function salvarAssociacoes(ativoId) {
 
                 // Caso o POST falhe (já existe), envia PUT para atualizar
                 if (!response.ok && response.status === 400) {
-                    await fetch(`/conformidade/${ativoId}/${controleId}`, {
+                    await fetch(`/conformidade/${ativoId}/${controleId}/`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ status: "Conforme" }),
@@ -326,7 +326,7 @@ async function salvarConformidade() {
       };
 
       // Faz a chamada à API para salvar a conformidade
-      const response = await api.post('/conformidade', dadosConformidade);
+      const response = await api.post('/conformidade/', dadosConformidade);
       alert(dadosConformidade)
       // Exibe uma mensagem de sucesso ao usuário
       alert(response.message || 'Conformidade salva com sucesso!');
@@ -373,7 +373,7 @@ async function deletarControle(controleId) {
 async function atualizarRelatorioConformidade(statusFiltro) {
   try {
       // Monta a URL com o filtro, se fornecido
-      const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status';
+      const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status/';
 
       // Chamada ao endpoint do backend
       const dadosConformidade = await api.get(url);
