@@ -440,3 +440,30 @@ document.getElementById('ip-ativo').addEventListener('blur', async function () {
     observacoesInput.value = textoObservacoes;
   }
 });
+
+
+async function abrirModalIpInfo() {
+  const ip = document.getElementById('ip-ativo').value;
+  if (!ip) {
+    alert('Digite um IP antes de consultar.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/ativos/ipinfo/manual?ip=${ip}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.mensagem || 'Erro ao buscar IP');
+    }
+
+    document.getElementById('ip-info-content').textContent = JSON.stringify(data.dados_ipinfo || data, null, 2);
+    new bootstrap.Modal(document.getElementById('ipInfoModal')).show();
+  } catch (error) {
+    document.getElementById('ip-info-content').textContent = `Erro ao buscar IP: ${error.message}`;
+    new bootstrap.Modal(document.getElementById('ipInfoModal')).show();
+  }
+}
