@@ -22,6 +22,7 @@
             <li><a href="#ativos-view" class="nav-link">Ativos</a></li>
             <li><a href="#controles-view" class="nav-link">Controles</a></li>
             <li><a href="#conformidade-view" class="nav-link">Relatório</a></li>           
+            <li><a href="#responsavel-view" class="nav-link">Cadastro de Responsáveis</a></li>           
         </ul>
     </nav>
 </header>
@@ -98,6 +99,9 @@
                             <button type="button" class="action-button" id="cancelar-cadastro">Cancelar</button>
                         </div>
                     </form>
+                    <div id="form-feedback" class="alert alert-success mt-3" style="display: none;">
+                        Ativo salvo com sucesso!
+                    </div>
 
                     <div id="ativos-loading" style="display: none; text-align: center; margin-top: 10px;">
                         <p>Carregando ativos...</p>
@@ -265,7 +269,47 @@
         </div>
     </div>
 
-
+    <div id="responsaveis-view" class="view hidden p-8 space-y-6">
+        <h2 class="text-2xl font-semibold">Responsáveis</h2>
+      
+        <!-- Formulário de novo responsável -->
+        <form id="form-cadastro-responsavel" onsubmit="salvarResponsavel(event)" class="space-y-4">
+          <div>
+            <label for="nome-responsavel" class="font-bold block">Nome</label>
+            <input type="text" id="nome-responsavel" class="input-field" required>
+          </div>
+          <div>
+            <label for="email-responsavel" class="font-bold block">Email</label>
+            <input type="email" id="email-responsavel" class="input-field" required>
+          </div>
+          <div>
+            <label for="status-responsavel" class="font-bold block">Status</label>
+            <input type="text" id="status-responsavel" class="input-field" required>
+          </div>
+          <button type="submit" class="action-button">Salvar Responsável</button>
+        </form>
+      
+        <div id="form-responsavel-feedback" class="alert alert-success mt-3" style="display: none;">
+          Responsável salvo com sucesso!
+        </div>
+      
+        <!-- Tabela -->
+        <div class="overflow-x-auto bg-white rounded shadow p-4">
+          <table class="table-auto w-full border">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="px-4 py-2 border">Nome</th>
+                <th class="px-4 py-2 border">Email</th>
+                <th class="px-4 py-2 border">Status</th>
+                <th class="px-4 py-2 border">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-responsaveis-body">
+              <!-- Preenchido dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+    </div>
 
     
 <!-- Footer -->
