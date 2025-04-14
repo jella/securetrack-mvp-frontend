@@ -28,9 +28,9 @@ async function updateDashboard() {
       const controles = await api.get('/controles/');
 
       // Chamada ao endpoint do backend
-      const dadosConformidadePendentes = await api.get(`/conformidade/status?status='Pendente'}`);
-      const dadosConformidadeEmAndamento = await api.get(`/conformidade/status?status='Andamento'}`);
-      const dadosConformidadeImplementadas = await api.get(`/conformidade/status?status='Implementada'}`);
+      const dadosConformidadePendentes = await api.get('/conformidade/status?status=Pendente');
+      const dadosConformidadeEmAndamento = await api.get('/conformidade/status?status=Andamento');
+      const dadosConformidadeImplementadas = await api.get('/conformidade/status?status=Implementada');
       const conformidade = await api.get('/conformidade/');
 
       // Atualizar os contadores no HTML
