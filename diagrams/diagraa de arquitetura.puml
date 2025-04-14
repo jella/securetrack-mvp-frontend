@@ -1,0 +1,19 @@
+@startuml
+title Cenário 1 - Diagrama de Arquitetura
+
+actor "API Externa\n(ex: Yahoo Finance,\nFake Store)" as ExternalAPI
+package "FrontEnd" {
+    node "Interface (FrontEnd)" as FrontEnd
+}
+
+package "BackEnd" {
+    node "API (BackEnd)" as BackEnd
+    database "Banco de Dados" as DB
+}
+
+' Comunicação entre os componentes
+ExternalAPI --> FrontEnd : Requisições externas
+FrontEnd --> BackEnd : REST ou GraphQL
+BackEnd --> DB : Leitura / Gravação
+
+@enduml
