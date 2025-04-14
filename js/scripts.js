@@ -1,5 +1,5 @@
   
-const API_BASE_URL = 'http://127.0.0.1:5000/';
+const API_BASE_URL = 'http://localhost:5000';
 
 async function makeRequest(method, endpoint, data = null, headers = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -405,6 +405,14 @@ async function geraRelatorio(event) {
   atualizarRelatorioConformidade(statusFiltro); // Atualiza o relatório com o filtro
  
 };
+
+function mostrarFeedback(msg, tipo = 'success') {
+  const el = document.getElementById('form-feedback');
+  el.className = `alert alert-${tipo} mt-3`;
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
