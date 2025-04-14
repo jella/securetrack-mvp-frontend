@@ -23,15 +23,17 @@ document.getElementById('view-compliance-report')?.addEventListener('click', () 
 //configura eventos para os botões do dashboard
 async function updateDashboard() {
     try {
+      console.log("Dashboard carregado");
       // Fazer chamadas GET para os endpoints de ativos e controles
       const ativos = await api.get('/ativos/');
       const controles = await api.get('/controles/');
 
       // Chamada ao endpoint do backend
-      const dadosConformidadePendentes = await api.get('/conformidade/status?status=Pendente');
-      const dadosConformidadeEmAndamento = await api.get('/conformidade/status?status=Andamento');
-      const dadosConformidadeImplementadas = await api.get('/conformidade/status?status=Implementada');
-      const conformidade = await api.get('/conformidade/');
+      const dadosConformidadePendentes = await api.get('/conformidades/status/?status=Pendente');
+      const dadosConformidadeEmAndamento = await api.get('/conformidades/status/?status=Andamento');
+      const dadosConformidadeImplementadas = await api.get('/conformidades/status/?status=Implementada');
+      const conformidade = await api.get('/conformidades/');
+      
 
       // Atualizar os contadores no HTML
       document.getElementById('assets-count').textContent = ativos.length;
@@ -41,8 +43,12 @@ async function updateDashboard() {
       document.getElementById('implementados-count').textContent = dadosConformidadeImplementadas.length;
 
     } catch (error) {
-        console.error('Erro ao atualizar o dashboard:', error);
+      console.error('Erro ao atualizar o dashboard:', error);
+      document.getElementById('assets-count').textContent = 'Erro';
+      document.getElementById('controls-count').textContent = 'Erro';
     }
 }
+
+
 
 

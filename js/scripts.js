@@ -149,7 +149,7 @@ async function atualizarTabelaAssociacaoControles(id) {
 
   try {
     const controles = await api.get('/controles/'); // Chamada à API
-    const ativo = await api.get('/ativos/'+ id + "/"); // Chamada à API
+    const ativo = await api.get('/ativos/'+ id ); // Chamada à API
     const tableBody = document.querySelector('#tabela-controles-associacao tbody');
     if (!tableBody) return; // Se a tabela não existir, termina a execução
 
@@ -176,7 +176,7 @@ async function atualizarTabelaAssociacaoControles(id) {
 
       `;
     });
-    limpaCampoAtivos('="form-cadastro-controle"')
+    limpaCampoAtivos("form-cadastro-controle")
     tableBody.innerHTML = html; // Atualiza o DOM apenas uma vez
   } catch (error) {
     console.error('Erro ao carregar controles:', error);
@@ -327,7 +327,7 @@ async function salvarConformidade() {
       };
 
       // Faz a chamada à API para salvar a conformidade
-      const response = await api.post('/conformidade/', dadosConformidade);
+      const response = await api.post('/conformidades/', dadosConformidade);
       alert(dadosConformidade)
       // Exibe uma mensagem de sucesso ao usuário
       alert(response.message || 'Conformidade salva com sucesso!');
@@ -374,7 +374,7 @@ async function deletarControle(controleId) {
 async function atualizarRelatorioConformidade(statusFiltro) {
   try {
       // Monta a URL com o filtro, se fornecido
-      const url = statusFiltro ? `/conformidade/status?status=${statusFiltro}` : '/conformidade/status/';
+      const url = statusFiltro ? `/conformidades/status/?status=${statusFiltro}` : '/conformidade/status/';
 
       // Chamada ao endpoint do backend
       const dadosConformidade = await api.get(url);
