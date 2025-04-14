@@ -194,11 +194,12 @@ async function atualizarTabelaAssociacaoControles(id) {
 async function salvarAtivo(event) {
   event.preventDefault();
   const dadosAtivo = {
-      nome: document.getElementById('nome-ativo').value,
-      tipo: document.getElementById('tipo-ativo').value,
-      status: document.getElementById('status-ativo').value,
-      responsavel: document.getElementById('responsavel-ativo').value,
-      observacoes: document.getElementById('observacoes-ativo').value,
+    nome: document.getElementById('nome-ativo').value,
+    tipo: document.getElementById('tipo-ativo').value,
+    status: document.getElementById('status-ativo').value,
+    responsavel: document.getElementById('responsavel-ativo').value,
+    observacoes: document.getElementById('observacoes-ativo').value,
+    ip: document.getElementById('ip-ativo')?.value || null  // ✅ inclui o campo IP
   };
   try {
       await api.post('/ativos/', dadosAtivo);
@@ -417,4 +418,25 @@ function mostrarFeedback(msg, tipo = 'success') {
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
   setupHistoryListeners();
+});
+
+
+document.getElementById('ip-ativo').addEventListener('blur', async function () {
+  const ip = this.value;
+  if (!ip) return;
+
+  const dados = await consultarIPInfo(ip);
+  if (dados) {
+    const textoObservacoes = `
+      IP Info:
+      IP: ${dados.ip}
+      Cidade: ${dados.city || ''}
+      Região: ${dados.region || ''}
+      País: ${dados.country || ''}
+      ISP: ${dados.org || ''}
+    `.trim();
+
+    const observacoesInput = document.getElementById('observacoes-ativo');
+    observacoesInput.value = textoObservacoes;
+  }
 });
