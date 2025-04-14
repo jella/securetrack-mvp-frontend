@@ -467,3 +467,18 @@ async function abrirModalIpInfo() {
     new bootstrap.Modal(document.getElementById('ipInfoModal')).show();
   }
 }
+
+async function consultarIPInfo(ip) {
+  try {
+    const response = await fetch(`http://localhost:5000/ativos/ipinfo/manual?ip=${ip}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) throw new Error('Erro ao buscar dados do IP');
+    return await response.json();
+  } catch (error) {
+    console.error('Erro na consulta IPInfo:', error);
+    return null;
+  }
+}
