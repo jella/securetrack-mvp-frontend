@@ -13,9 +13,9 @@ Este é o repositório do **front-end** da aplicação SecureTrack. Ele consiste
 
 ---
 
-## 🛠️ Configuração do Ambiente Local
+## 🛠️ Configuração do Ambiente
 
-Siga os passos abaixo para configurar o ambiente local e iniciar o projeto.
+Siga os passos abaixo para configurar o ambiente e iniciar o projeto.
 
 ### 1. Clonar o Repositório
 
@@ -43,11 +43,11 @@ cd system-control-app
 └── README.md           # Documentação do projeto
 ```
 
-### 2. Servir os Arquivos Localmente
+### 2. Servir os Arquivos 
 
-Não é necessario usar usar um servidor HTTP para acessar frontend. E só clicar no arquivo index.html na pasta raiz da aplicação (system-control-app). 
+python -m http.server 8000
 
-*Antes de acessar Certifique-se de que o backend está rodando. 
+*Antes de acessar Certifique-se de que o backend está rodando ele esta configurado  para aceitar chamadas do forntend nesse servidor. 
 
 ## 🔗 Integração com o Backend
 
@@ -59,7 +59,8 @@ Certifique-se de que o backend está rodando em [http://127.0.0.1:5000/](http://
 
 - **Listar Ativos (GET):** `/ativos`
 - **Criar Ativo (POST):** `/ativos/`
-- **Listar Controles (GET):** `/controles/`
+- **Listar Controles (GET):** `/controles`
+- **Listar Responsaveis (GET):** `/responsaveis`
 
 ---
 
