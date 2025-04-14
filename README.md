@@ -43,11 +43,25 @@ cd system-control-app
 └── README.md           # Documentação do projeto
 ```
 
-### 2. Servir os Arquivos 
+### 2. 🚀 Como executar via Docker
 
-python -m http.server 8000
+### 1. Clone o projeto
 
-*Antes de acessar Certifique-se de que o backend está rodando ele esta configurado  para aceitar chamadas do forntend nesse servidor. 
+```bash
+git clone https://github.com/seu-usuario/securetrack.git
+cd securetrack
+```
+
+### 3.  Build da imagem Docker
+```bash
+docker build -t securetrack-app .
+```
+
+4. Suba o container
+```bash
+docker run -d -p 8000:8000 --name securetrack securetrack-app
+O frontend estará disponível em http://localhost:8000
+
 
 ## 🔗 Integração com o Backend
 
@@ -55,7 +69,7 @@ O front-end consome a API do backend para gerenciar os dados. Certifique-se de q
 
 ### Configuração da API
 
-Certifique-se de que o backend está rodando em [http://127.0.0.1:5000/](http://127.0.0.1:5000/). Acesse os seguintes endpoints para interagir com a API:
+Certifique-se de que o backend está rodando em [http://localhost:8000/](http://localhost:8000/). Acesse os seguintes endpoints para interagir com a API:
 
 - **Listar Ativos (GET):** `/ativos`
 - **Criar Ativo (POST):** `/ativos/`
