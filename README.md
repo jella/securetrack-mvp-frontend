@@ -41,6 +41,7 @@ cd system-control-app
 │   ├── navigation.js      # Lógica de navegação
 │   ├── dashboard.js       # Lógica da dashboard
 └── README.md           # Documentação do projeto
+└── Dockerfile      
 ```
 
 ### 2. 🚀 Como executar via Docker
