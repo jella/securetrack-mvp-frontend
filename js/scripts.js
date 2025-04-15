@@ -373,9 +373,13 @@ async function deletarControle(controleId) {
  */
 async function atualizarRelatorioConformidade(statusFiltro) {
   try {
-      // Monta a URL com o filtro, se fornecido
-      const url = statusFiltro ? `/conformidades/status/?status=${statusFiltro}` : '/conformidades/status/';
-
+    const normalizarStatus = (status) =>
+      status ? status.charAt(0).toUpperCase() + status.slice(1).toLowerCase() : null;
+    
+    const statusFormatado = normalizarStatus(statusFiltro);
+    
+    // Monta a URL com o filtro, se fornecido
+    const url = statusFormatado ? `/conformidades/status/?status=${statusFormatado}` : '/conformidades/status/';  
       // Chamada ao endpoint do backend
       const dadosConformidade = await api.get(url);
 
