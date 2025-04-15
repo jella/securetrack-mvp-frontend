@@ -141,11 +141,11 @@ button {
     gap: 2rem;
 }
 
+
 #summary {
-    display: flex;
-    gap: 2rem;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
 }
 
 .summary-item {
@@ -169,6 +169,18 @@ button {
     font-weight: bold;
     color: #004080;
     margin-bottom: 1rem;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    background-color: #eef1f5;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: -1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
 }
 
 .action-button {
