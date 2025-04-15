@@ -34,6 +34,14 @@
                 <h2>Dashboard SecureTrack</h2>
                 <!-- Summary Section -->
                 <section id="summary">
+                    <div class="summary-item" id="summary-assets">
+                        <h2>Ativos</h2>
+                        <p class="summary-count" id="assets-count">0</p>
+                    </div>
+                    <div class="summary-item" id="summary-controls">
+                        <h2>Controles</h2>
+                        <p class="summary-count" id="controls-count">0</p>
+                    </div>                 
                     <div class="summary-item" id="summary-implementados">
                         <h2>Implementados</h2>
                         <p class="summary-count" id="implementados-count">0</p>
@@ -49,19 +57,11 @@
                         <p class="summary-count" id="em-andamento-count">0</p>
                         <p></p>
                     </div>                  
-                    <div class="summary-item" id="summary-assets">
-                        <h2>Ativos</h2>
-                        <p class="summary-count" id="assets-count">0</p>
-                        <button class="action-button" id="add-asset">Novo Ativo</button>
-                    </div>
-                    <div class="summary-item" id="summary-controls">
-                        <h2>Controles</h2>
-                        <p class="summary-count" id="controls-count">0</p>
-                        <button class="action-button" id="add-control">Novo Controle</button>
-                    </div>
                 </section>
-                <!-- Actions Section -->
-                <section id="actions">
+
+                <section id="dashboard-actions" class="action-bar">
+                    <button class="action-button" id="add-asset">Novo Ativo</button>
+                    <button class="action-button" id="add-control">Novo Controle</button>
                     <button class="action-button" id="view-compliance-report">Relatório de Conformidade</button>
                 </section>
             </main>
@@ -247,10 +247,10 @@
                     <div id="filtros-conformidade">
                         <label for="filtro-status">Filtrar por status:</label>
                         <select id="filtro-status" class="input-field" name="filtro-status">
-                            <option value="todos">Todos</option>
+                            <option value="Todos">Todos</option>
                             <option value="implementado">Implementado</option>
                             <option value="pendente">Pendente</option>
-                            <option value="">Em Andamento</option>
+                            <option value="">Andamento</option>
                         </select>
                         <button type='submit'  id="aplicar-filtro" class="action-button">Aplicar Filtro</button>
                     </div>
