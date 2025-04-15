@@ -374,7 +374,7 @@ async function deletarControle(controleId) {
 async function atualizarRelatorioConformidade(statusFiltro) {
   try {
       // Monta a URL com o filtro, se fornecido
-      const url = statusFiltro ? `/conformidades/status/?status=${statusFiltro}` : '/conformidade/status/';
+      const url = statusFiltro ? `/conformidades/status/?status=${statusFiltro}` : '/conformidades/status/';
 
       // Chamada ao endpoint do backend
       const dadosConformidade = await api.get(url);
